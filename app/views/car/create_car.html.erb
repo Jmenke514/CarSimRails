@@ -1,0 +1,31 @@
+<h1>Time to Simulate</h1>
+<a href="/"><input type="button" value="New Car"/></a>
+
+<form action="/car/repaint_car" method="get">
+  <input type="submit" value="Repaint Car"/>
+  <input type="color" name="user_color" value="#ffffff" required/>
+</form>
+
+<p style="background-color: <%= @car.get_color %>">Make: <%= @car.get_make %></p>
+<p>Year: <%= @car.get_year %></p>
+<p>Speed: <%=@car.get_speed %></p>
+
+<p style="<%=
+if @car.get_lights
+  'background-color: yellow'
+end
+%>"
+
+>Lights On: <%= @car.get_lights %></p>
+<a href="/car/toggle_lights"><input type="button" value="Turn Lights <%= cookies[:lights] %>"/></a>
+
+<a href="/car/accelerate"><input type="submit" value="Accelerate"/></a>
+<a href="/car/brake"><input type="submit" value="Brake"/></a>
+
+<p>Parking Brake: <%= @car.get_parking_brake %>
+</p>
+<form action="/car/parking_brake" method="get">
+  <input type="radio" name="parking" value="On"/>On</br>
+  <input type="radio" name="parking" value="Off"/>Off</br>
+  <input type="submit" value="Set"/>
+</form>

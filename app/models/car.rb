@@ -5,7 +5,8 @@ class Car
     @color = color
     @speed = 0
     @lights_on = false
-    @parking_brake = "On"
+    @parking_brake = 'On'
+    @light_button = 'On'
   end
 
   def get_make
@@ -24,6 +25,14 @@ class Car
     @lights_on
   end
 
+  def get_light_button
+    @light_button
+  end
+
+  def change_light_button(light_button)
+    @light_button = light_button
+  end
+
   def get_speed
     @speed
   end
@@ -33,7 +42,7 @@ class Car
   end
 
   def accelerate
-    if @parking_brake == "Off"
+    if @parking_brake == 'Off'
        @speed += 10
     end
   end
@@ -58,7 +67,6 @@ class Car
     if @speed <= 0
       @parking_brake = brake
     end
-
   end
 
 

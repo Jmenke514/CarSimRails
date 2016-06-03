@@ -17,7 +17,7 @@ end
 %>"
 
 >Lights On: <%= @car.get_lights %></p>
-<a href="/car/toggle_lights"><input type="button" value="Turn Lights <%= cookies[:lights] %>"/></a>
+<a href="/car/toggle_lights"><input type="button" value="Turn Lights <%= @car.get_light_button %>"/></a>
 
 <a href="/car/accelerate"><input type="submit" value="Accelerate"/></a>
 <a href="/car/brake"><input type="submit" value="Brake"/></a>
@@ -25,7 +25,15 @@ end
 <p>Parking Brake: <%= @car.get_parking_brake %>
 </p>
 <form action="/car/parking_brake" method="get">
-  <input type="radio" name="parking" value="On"/>On</br>
-  <input type="radio" name="parking" value="Off"/>Off</br>
+  <input type="radio" name="parking" value="On" <%=
+  if @car.get_parking_brake == 'On'
+    'checked'
+  end
+  %>/>On</br>
+  <input type="radio" name="parking" value="Off" <%=
+  if @car.get_parking_brake == 'Off'
+    'checked'
+  end
+  %>/>Off</br>
   <input type="submit" value="Set"/>
 </form>

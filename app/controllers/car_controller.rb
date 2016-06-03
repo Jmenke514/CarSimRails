@@ -1,16 +1,24 @@
 class CarController < ApplicationController
   def create_car
+    #if user calls the method and sends parameters
     if params.has_key?(:make) && params.has_key?(:year)
+      #if user calls the method and sends parameters with no values
       if params[:make].strip.empty? || params[:year].strip.empty?
+        #redirect to the root directory
         redirect_to '/'
+        #if user calls the method and sends valid parameters
       else
+        #create a new car class object using the parameters sent by the browser and store it in a variable
         new_car = Car.new(params[:make], params[:year], params[:user_color])
+        #store the car object in a cookie as a yaml string
         cookies[:car] = new_car.to_yaml
+        #get yaml string from cookie and convert it back to an object and store it in the @car instance variable
         @car = YAML.load(cookies[:car])
-        cookies[:lights] = 'On'
         render 'create_car.html.erb'
       end
+      #if user calls the method and doesn't send parameters
     else
+      #redirect to the root directory
       redirect_to '/'
     end
   end
@@ -39,12 +47,12 @@ class CarController < ApplicationController
   def toggle_lights
     @car = YAML.load(cookies[:car])
     @car.toggle_lights
-    cookies[:car] = @car.to_yaml
     if @car.get_lights
-      cookies[:lights] = 'Off'
+      @car.change_light_button('Off')
     else
-      cookies[:lights] = 'On'
+      @car.change_light_button('On')
     end
+    cookies[:car] = @car.to_yaml
     render 'create_car.html.erb'
   end
 
